@@ -1,4 +1,7 @@
 version: 0.2
+env:
+  variables:
+    FUNCTION_NAME: function_name
 phases:
   install:
     runtime-versions:
@@ -8,8 +11,8 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Python code...
       - pwd
-      - pip install -r get-res/requirements.txt -t .
-      - cp get-res/lambda.py .
+      - pip install -r $FUNCTION_NAME/requirements.txt -t .
+      - cp $FUNCTION_NAME/lambda.py .
   post_build:
     commands:
       - echo Build completed on `date`
@@ -18,3 +21,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+  name: $FUNCTION_NAME-$CODEBUILD_BUILD_NUMBER

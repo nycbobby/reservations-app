@@ -2,12 +2,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.10
+      python: 3.9
   build:
     commands:
       - echo Build started on `date`
       - echo Compiling the Python code...
-      - pip install -r requirements.txt -t .
+      - pwd
+      - pip install -r lambda/requirements.txt -t .
   post_build:
     commands:
       - echo Build completed on `date`

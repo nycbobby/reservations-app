@@ -7,7 +7,8 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Compiling the Python code...
-      - pip install -r requirements.txt -t .
+      - pwd
+      - pip install -r lambda/requirements.txt -t .
   post_build:
     commands:
       - echo Build completed on `date`

@@ -1,13 +1,7 @@
 import boto3
 from prettytable import PrettyTable
 
-session = boto3.Session(
-    aws_access_key_id="AKIATZUPZTKPT33VCENR",
-    aws_secret_access_key="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",
-    region_name="us-east-1"
-)
-
-dynamodb = session.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb')
 
 TABLE = dynamodb.Table('Reservations')
 COLUMNS = ['ReservationId','RoomNumber','CustomerName','Nights']

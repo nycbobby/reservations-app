@@ -21,4 +21,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  name: $FUNCTION_NAME-$CODEBUILD_BUILD_NUMBER
+  name: $FUNCTION_NAME-lambda-build-$CODEBUILD_BUILD_NUMBER

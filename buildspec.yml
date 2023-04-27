@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    FUNCTION_NAME: get-res
+    FUNCTION_NAME: add-res
 phases:
   install:
     runtime-versions:

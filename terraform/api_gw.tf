@@ -87,7 +87,7 @@ module "add_res_resource" {
   fn_name             = "add-res"
   http_method         = "POST"
   lambda_role_arn     = aws_iam_role.iam_for_lambda.arn
-  lambda_build        = "25"
+  lambda_build        = "29"
   apigw_id            = aws_api_gateway_rest_api.reservations.id
   root_resource_id    = aws_api_gateway_rest_api.reservations.root_resource_id
   apigw_execution_arn = local.apigw_execution_arn

@@ -1,4 +1,4 @@
-import boto3
+import boto3, json
 from prettytable import PrettyTable
 
 dynamodb = boto3.resource('dynamodb')
@@ -18,12 +18,16 @@ def list_all_res():
             row_list.append(row[c])
         t.add_row(row_list)
 
-    return t.get_string(sortby='ReservationId')
+    return_dict = {
+        'raw_scan': response,
+        'pretty_table': t.get_string(sortby='ReservationId') 
+    }
+    return return_dict
 
 def lambda_handler(event,context):
     response = list_all_res()
     print(response)
     return {
         'statusCode': 200,
-        'body': response
+        'body': json.dumps(response)
     }

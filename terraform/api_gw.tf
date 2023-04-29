@@ -85,7 +85,7 @@ module "get_res_resource" {
 module "add_res_resource" {
   source              = "./modules/apigw_resource"
   fn_name             = "add-res"
-  http_method         = "PUT"
+  http_method         = "POST"
   lambda_role_arn     = aws_iam_role.iam_for_lambda.arn
   lambda_build        = "25"
   apigw_id            = aws_api_gateway_rest_api.reservations.id

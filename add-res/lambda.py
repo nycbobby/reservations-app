@@ -1,4 +1,5 @@
 import boto3
+import json
 
 dynamodb = boto3.resource('dynamodb')
 
@@ -15,15 +16,16 @@ def add_res(reservation_id, customer_name, room_number, nights):
             }
         )
     except:
-        return 'An error occurred.'
+        return 'An error occurred adding the reservation.'
         
     return 'Reservation added successfully.'
 
 def lambda_handler(event, context):
-    reservation_id = event['reservation_id']
-    customer_name = event['customer_name']
-    room_number = event['room_number']
-    nights = event['nights']
+    json_data = json.loads(event['body'])
+    reservation_id = json_data['reservation_id']
+    customer_name = json_data['customer_name']
+    room_number = json_data['room_number']
+    nights = json_data['nights']
 
     response = add_res(reservation_id,customer_name,room_number,nights)
     

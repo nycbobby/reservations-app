@@ -24,6 +24,9 @@ resource "aws_api_gateway_deployment" "reservations" {
       module.add_res_resource.resource_id,
       module.add_res_resource.method_id,
       module.add_res_resource.integration_id,
+      module.delete_res_resource.resource_id,
+      module.delete_res_resource.method_id,
+      module.delete_res_resource.integration_id,
     ]))
   }
 
@@ -88,6 +91,17 @@ module "add_res_resource" {
   http_method         = "POST"
   lambda_role_arn     = aws_iam_role.iam_for_lambda.arn
   lambda_build        = "29"
+  apigw_id            = aws_api_gateway_rest_api.reservations.id
+  root_resource_id    = aws_api_gateway_rest_api.reservations.root_resource_id
+  apigw_execution_arn = local.apigw_execution_arn
+}
+
+module "delete_res_resource" {
+  source              = "./modules/apigw_resource"
+  fn_name             = "delete-res"
+  http_method         = "POST"
+  lambda_role_arn     = aws_iam_role.iam_for_lambda.arn
+  lambda_build        = "32"
   apigw_id            = aws_api_gateway_rest_api.reservations.id
   root_resource_id    = aws_api_gateway_rest_api.reservations.root_resource_id
   apigw_execution_arn = local.apigw_execution_arn

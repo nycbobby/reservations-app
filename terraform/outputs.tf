@@ -1,4 +1,4 @@
-output "invoke_url" {
+output "apigw_invoke_url" {
   value = aws_api_gateway_stage.reservations.invoke_url
 }
 

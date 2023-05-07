@@ -11,8 +11,8 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Python code...
       - pwd
-      - pip install -r $FUNCTION_NAME/requirements.txt -t .
-      - cp $FUNCTION_NAME/lambda.py .
+      - pip install -r lambdas/$FUNCTION_NAME/requirements.txt -t .
+      - cp lambdas/$FUNCTION_NAME/lambda.py .
   post_build:
     commands:
       - echo Build completed on `date`

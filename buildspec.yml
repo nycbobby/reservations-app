@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    FUNCTION_NAME: delete-res
+    FUNCTION_NAME: cost-savings
 phases:
   install:
     runtime-versions:

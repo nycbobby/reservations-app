@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    FUNCTION_NAME: cost-savings
+    FUNCTION_NAME: eks-delete-cluster
 phases:
   install:
     runtime-versions:

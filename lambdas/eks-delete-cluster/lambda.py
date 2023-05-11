@@ -1,52 +1,62 @@
 import boto3
-import json
 import time
-from terrasnek.api import TFC
+import os
 
-client = boto3.client('secretsmanager', region_name='us-east-1')
+CLIENT = boto3.client('eks')
+CLUSTER_NAME = os.environ['cluster_name']
+NODEGROUP_NAME = os.environ['nodegroup_name']
 
-secret_value = client.get_secret_value(
-    SecretId='tfc_token'
-)
+def error(msg):
+    # print error message to Cloudwatch logs an exit
+    print(msg)
+    raise ValueError(msg)
 
-TFC_TOKEN = json.loads(secret_value['SecretString'])['tfc_token']
-TFC_URL = 'https://app.terraform.io'
+def delete_cluster():
+    # delete eks cluster
+    try:
+        CLIENT.delete_cluster(
+            name=CLUSTER_NAME
+        )
+    except:
+        error('Error deleting cluster.')
 
-api = TFC(TFC_TOKEN, url=TFC_URL)
-api.set_org("tpa_bb")
+def delete_waiter(delete_obj):
+    # wait for delete nodegroup to complete
+    status = delete_obj['nodegroup']['status']
+    while status == 'DELETING':
+        try:
+            response = describe_nodegroup()
+            status = response['nodegroup']['status']
+            time.sleep(2)
+        except:
+            status = 'n/a'
 
-create_run_payload = {
-    "data": {
-        "attributes": {
-        "message": "Starting run through API"
-        },
-        "type":"runs",
-        "relationships": {
-            "workspace": {
-                "data": {
-                "type": "workspaces",
-                "id": "ws-3c8reuKc6dqa5FjC"
-                }
-            }
-        }
+def delete_nodegroup():
+    # delete nodegroup
+    try:
+        response = CLIENT.delete_nodegroup(
+            clusterName=CLUSTER_NAME,
+            nodegroupName=NODEGROUP_NAME
+        )
+    except:
+        error('Error deleting nodegroup.')
+    delete_waiter(response)
+
+def describe_nodegroup():
+    # describe nodegroup
+    nodegroup_obj = CLIENT.describe_nodegroup(
+        clusterName=CLUSTER_NAME,
+        nodegroupName=NODEGROUP_NAME
+    )
+    return nodegroup_obj
+
+def lambda_handler(event, context):
+    # lambda entrypoint
+    delete_nodegroup()
+    delete_cluster()
+
+    return {
+        'statusCode': 200,
+        'body': "OK"
     }
-}
-
-run = api.runs.create(create_run_payload)
-run_status = run['data']['attributes']['status']
-run_id = run['data']['id']
-
-while run_status != 'planned':
-    #print(f"status is: {run_status}")
-    run_status = api.runs.show(run_id,include=None)['data']['attributes']['status']
-    time.sleep(2)
-
-apply_run_payload = {
-  "comment":"Applying from API"
-}
-
-try:
-    applied_run = api.runs.apply(run["data"]["id"],payload=apply_run_payload)
-    print('Run applied successfully.')
-except:
-    print('Error applying run.')
+  

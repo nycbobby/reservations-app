@@ -3,8 +3,8 @@ import time
 import os
 
 CLIENT = boto3.client('eks')
-CLUSTER_NAME = os.environ['cluster_name']
-NODEGROUP_NAME = os.environ['nodegroup_name']
+CLUSTER_NAME = os.environ['CLUSTER_NAME']
+NODEGROUP_NAME = os.environ['NODEGROUP_NAME']
 
 def error(msg):
     # print error message to Cloudwatch logs an exit

@@ -57,7 +57,7 @@ def apply_run(run_id):
 
 def plan_waiter(run_status, run_id):
     # waits for Terraform plan to complete
-    while run_status != 'planned':
+    while run_status not in ['planned','planned_and_finished']:
         run_status = API.runs.show(run_id,include=None)['data']['attributes']['status']
         print(f'current run status: {run_status}')
         time.sleep(2)

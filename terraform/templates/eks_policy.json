@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "eks:DeleteCluster",
+                "eks:UpdateNodegroupVersion",
+                "eks:DescribeNodegroup",
+                "eks:ListNodegroups",
+                "eks:ListTagsForResource",
+                "eks:DeleteNodegroup",
+                "eks:DescribeUpdate",
+                "eks:UpdateNodegroupConfig",
+                "eks:DescribeCluster",
+                "eks:UpdateClusterConfig",
+                "eks:DeregisterCluster"
+            ],
+            "Resource": [
+                "arn:aws:eks:*:261220833951:cluster/${cluster_name}",
+                "arn:aws:eks:*:261220833951:identityproviderconfig/${cluster_name}/*/*/*",
+                "arn:aws:eks:*:261220833951:fargateprofile/${cluster_name}/*/*",
+                "arn:aws:eks:*:261220833951:nodegroup/${cluster_name}/*/*",
+                "arn:aws:eks:*:261220833951:addon/${cluster_name}/*/*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": "eks:ListClusters",
+            "Resource": "*"
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 variable "cluster_name" {
-    default = "eks_test"
+  default = "eks_test"
 }
 
 variable "node_group_name" {
-    default = "eks_test_nodegroup"
+  default = "eks_test_nodegroup"
 }

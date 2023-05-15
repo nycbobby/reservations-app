@@ -3,9 +3,9 @@ output "integration_id" {
 }
 
 output "method_id" {
-    value = aws_api_gateway_method.function.id
+  value = aws_api_gateway_method.function.id
 }
 
 output "resource_id" {
-    value = aws_api_gateway_resource.function.id
+  value = aws_api_gateway_resource.function.id
 }

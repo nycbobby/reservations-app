@@ -17,25 +17,23 @@ resource "aws_api_gateway_integration" "function" {
   http_method             = aws_api_gateway_method.function.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.function.invoke_arn
+  uri                     = module.lambda.invoke_arn
 }
 
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.function.function_name
+  function_name = module.lambda.function_name
   principal     = "apigateway.amazonaws.com"
 
   # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
   source_arn = var.apigw_execution_arn
 }
 
-resource "aws_lambda_function" "function" {
-  s3_bucket     = var.artifacts_bucket
-  s3_key        = "${var.fn_name}-lambda-build-${var.lambda_build}"
-  function_name = var.fn_name
-  handler       = "lambda.lambda_handler"
-  runtime       = "python3.9"
-  timeout       = 180
-  role          = var.lambda_role_arn
+module "lambda" {
+  source           = "../lambda"
+  artifacts_bucket = var.artifacts_bucket
+  lambda_build     = var.lambda_build
+  fn_name          = var.fn_name
+  lambda_role_arn  = var.lambda_role_arn
 }

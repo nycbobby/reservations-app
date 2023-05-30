@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-demo
+  labels:
+    app: nginx-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-demo
+  template:
+    metadata:
+      labels:
+        app: nginx-demo
+    spec:
+      containers:
+        - name: nginx-demo
+          image: 261220833951.dkr.ecr.us-east-1.amazonaws.com/demo:nginx-demo-0.0.11
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred

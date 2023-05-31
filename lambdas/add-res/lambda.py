@@ -1,13 +1,11 @@
 import boto3
 import json
 
-dynamodb = boto3.resource('dynamodb')
+DYNAMODB = boto3.resource('dynamodb')
 
-TABLE = dynamodb.Table('Reservations')
-
-def add_res(reservation_id, customer_name, room_number, nights):
+def add_res(reservation_id, customer_name, room_number, nights, table):
     try:
-        TABLE.put_item(
+        table.put_item(
             Item={
                 'ReservationId': reservation_id,
                 'CustomerName': customer_name,
@@ -21,13 +19,18 @@ def add_res(reservation_id, customer_name, room_number, nights):
     return 'Reservation added successfully.'
 
 def lambda_handler(event, context):
+    # load reservation data
     json_data = json.loads(event['body'])
     reservation_id = json_data['reservation_id']
     customer_name = json_data['customer_name']
     room_number = json_data['room_number']
     nights = json_data['nights']
 
-    response = add_res(reservation_id,customer_name,room_number,nights)
+    # load table name
+    customer = event['headers']['customer']
+    table = DYNAMODB.Table(customer)
+
+    response = add_res(reservation_id, customer_name, room_number, nights, table)
     
     return {
         'statusCode': 200,

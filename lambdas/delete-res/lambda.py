@@ -1,13 +1,11 @@
 import boto3
 import json
 
-dynamodb = boto3.resource('dynamodb')
+DYNAMODB = boto3.resource('dynamodb')
 
-TABLE = dynamodb.Table('Reservations')
-
-def delete_res(reservation_id):
+def delete_res(reservation_id, table):
     try:
-        TABLE.delete_item(
+        table.delete_item(
             Key={
                 'ReservationId': reservation_id
             }
@@ -20,10 +18,15 @@ def delete_res(reservation_id):
         return message
 
 def lambda_handler(event, context):
+    # load reservation data
     json_data = json.loads(event['body'])
     reservation_id = json_data['reservation_id']
 
-    response = delete_res(reservation_id)
+    # load table name
+    customer = event['headers']['customer']
+    table = DYNAMODB.Table(customer)
+
+    response = delete_res(reservation_id, table)
     
     return {
         'statusCode': 200,

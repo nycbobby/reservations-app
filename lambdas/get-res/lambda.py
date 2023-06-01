@@ -1,13 +1,11 @@
 import boto3, json
 from prettytable import PrettyTable
 
-dynamodb = boto3.resource('dynamodb')
-
-TABLE = dynamodb.Table('Reservations')
+DYNAMODB = boto3.resource('dynamodb')
 COLUMNS = ['ReservationId','RoomNumber','CustomerName','Nights']
 
-def list_all_res():
-    response = TABLE.scan()
+def list_all_res(table):
+    response = table.scan()
     t = PrettyTable()
     t.field_names = COLUMNS
     t.align['CustomerName'] = 'l'
@@ -25,7 +23,9 @@ def list_all_res():
     return return_dict
 
 def lambda_handler(event,context):
-    response = list_all_res()
+    customer = event['headers']['customer']
+    table = DYNAMODB.Table(customer)
+    response = list_all_res(table)
     print(response)
     return {
         'statusCode': 200,

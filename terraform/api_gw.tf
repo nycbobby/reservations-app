@@ -79,7 +79,7 @@ module "get_res_resource" {
   fn_name             = "get-res"
   http_method         = "GET"
   lambda_role_arn     = aws_iam_role.reservations_lambdas.arn
-  lambda_build        = "54"
+  lambda_build        = "58"
   apigw_id            = aws_api_gateway_rest_api.reservations.id
   root_resource_id    = aws_api_gateway_rest_api.reservations.root_resource_id
   apigw_execution_arn = local.apigw_execution_arn
@@ -90,7 +90,7 @@ module "add_res_resource" {
   fn_name             = "add-res"
   http_method         = "POST"
   lambda_role_arn     = aws_iam_role.reservations_lambdas.arn
-  lambda_build        = "55"
+  lambda_build        = "59"
   apigw_id            = aws_api_gateway_rest_api.reservations.id
   root_resource_id    = aws_api_gateway_rest_api.reservations.root_resource_id
   apigw_execution_arn = local.apigw_execution_arn
@@ -101,7 +101,7 @@ module "delete_res_resource" {
   fn_name             = "delete-res"
   http_method         = "POST"
   lambda_role_arn     = aws_iam_role.reservations_lambdas.arn
-  lambda_build        = "57"
+  lambda_build        = "60"
   apigw_id            = aws_api_gateway_rest_api.reservations.id
   root_resource_id    = aws_api_gateway_rest_api.reservations.root_resource_id
   apigw_execution_arn = local.apigw_execution_arn

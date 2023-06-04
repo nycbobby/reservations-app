@@ -26,3 +26,8 @@ variable "workspace_id" {
   type    = string
   default = "ws-3c8reuKc6dqa5FjC"
 }
+
+variable "customers" {
+  type = list(string)
+  default = ["marriott","hilton","star"]
+}

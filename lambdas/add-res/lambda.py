@@ -27,8 +27,8 @@ def lambda_handler(event, context):
     nights = json_data['nights']
 
     # load table name
-    customer = event['headers']['customer']
-    table = DYNAMODB.Table(customer)
+    table_name = f"{event['headers']['customer'].lower()}-reservations"
+    table = DYNAMODB.Table(table_name)
 
     response = add_res(reservation_id, customer_name, room_number, nights, table)
     

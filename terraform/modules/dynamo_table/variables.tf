@@ -1,0 +1,3 @@
+variable "customer" {
+    type = string
+}

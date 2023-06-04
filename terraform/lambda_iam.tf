@@ -16,7 +16,6 @@ data "template_file" "dynamo_policy" {
 
   vars = {
     region    = data.aws_region.current.name
-    table_arn = aws_dynamodb_table.reservations.arn
     acct_id   = data.aws_caller_identity.current.account_id
   }
 

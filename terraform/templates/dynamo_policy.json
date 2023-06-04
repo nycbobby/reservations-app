@@ -12,7 +12,7 @@
 				"dynamodb:UpdateItem",
 				"dynamodb:DeleteItem"
 			],
-			"Resource": "${table_arn}"
+			"Resource": "arn:aws:dynamodb:${region}:${acct_id}:table/*-reservations"
 		},
 		{
 			"Effect": "Allow",

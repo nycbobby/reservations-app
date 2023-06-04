@@ -23,8 +23,8 @@ def list_all_res(table):
     return return_dict
 
 def lambda_handler(event,context):
-    customer = event['headers']['customer']
-    table = DYNAMODB.Table(customer)
+    table_name = f"{event['headers']['customer'].lower()}-reservations"
+    table = DYNAMODB.Table(table_name)
     response = list_all_res(table)
     print(response)
     return {

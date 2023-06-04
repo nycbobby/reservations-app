@@ -4,22 +4,27 @@ import time
 import os
 from terrasnek.api import TFC
 
+session = boto3.Session(
+    aws_access_key_id="AKIATZUPZTKPT33VCENR",
+    aws_secret_access_key="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",
+)
+
 # get tfc token from ASM
-client = boto3.client('secretsmanager', region_name='us-east-1')
+client = session.client('secretsmanager', region_name='us-east-1')
 secret_value = client.get_secret_value(
     SecretId='tfc_token'
 )
 
 # test data
-# TFC_URL = 'https://app.terraform.io'
-# TFC_ORG = 'tba_bb'
-# WORKSPACE_ID = 'ws-3c8reuKc6dqa5FjC'
+TFC_URL = 'https://app.terraform.io'
+TFC_ORG = 'tba_bb'
+WORKSPACE_ID = 'ws-3c8reuKc6dqa5FjC'
 
 # set constants
 TFC_TOKEN = json.loads(secret_value['SecretString'])['tfc_token']
-TFC_URL = os.environ['TFC_URL']
-TFC_ORG = os.environ['TFC_ORG']
-WORKSPACE_ID = os.environ['WORKSPACE_ID']
+# TFC_URL = os.environ['TFC_URL']
+# TFC_ORG = os.environ['TFC_ORG']
+# WORKSPACE_ID = os.environ['WORKSPACE_ID']
 
 API = TFC(TFC_TOKEN, url=TFC_URL)
 API.set_org(TFC_ORG)
@@ -83,3 +88,5 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': "OK"
     }
+
+lambda_handler('','')

@@ -5,8 +5,8 @@ import os
 from terrasnek.api import TFC
 
 session = boto3.Session(
-    aws_access_key_id="AKIATZUPZTKPT33VCENR",
-    aws_secret_access_key="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",
+    aws_access_key_id="",
+    aws_secret_access_key="",
 )
 
 # get tfc token from ASM

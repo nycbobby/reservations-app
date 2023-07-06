@@ -1,8 +1,13 @@
 import os, requests, json
 
 # set constants
-URL_STEM = "https://piaz3y0xr9.execute-api.us-east-1.amazonaws.com/test"
-API_KEY = 'TAJxUwZNo09ONZoFGgEZM1xFdxR7VPCP7vpzLogK'
+URL_STEM = "http://a8597e5ddf35d4b2e87d568baabb8cc6-1491154.us-east-1.elb.amazonaws.com"
+API_KEY = ''
+CUSTOMER = 'Star'
+HEADERS = {
+    'x-api-key': API_KEY,
+    'customer': CUSTOMER
+}
 
 def pause():
     # screen pause
@@ -17,13 +22,13 @@ def add_res(reservation_id,customer_name,room_number,nights):
         "nights": nights
     }
     url = URL_STEM + '/add-res'
-    response = requests.post(url, json=payload)
+    response = requests.post(url, json=payload, headers=HEADERS)
     return response
 
 def get_res(print_table=True):
     # get all reservations
     url = URL_STEM + '/get-res'
-    response = requests.get(url)
+    response = requests.get(url, headers=HEADERS)
     response_dict = json.loads(response.text)
     if print_table:
         print(response_dict['pretty_table'])
@@ -33,7 +38,7 @@ def delete_res(reservation_id):
     # delete a reservation
     url = URL_STEM + '/delete-res'
     payload = {"reservation_id": reservation_id}
-    response = requests.post(url, json=payload)
+    response = requests.post(url, json=payload, headers=HEADERS)
     return response
 
 is_running = True
@@ -42,7 +47,7 @@ while is_running:
     
     os.system('clear')
     
-    print('Welcome to the Hotel Reservation System')
+    print(f'Welcome to the {CUSTOMER} Hotel Reservation System')
     print('\n1. Add Reservation')
     print('2. Delete a Reservation')
     print('3. List all Reservations')

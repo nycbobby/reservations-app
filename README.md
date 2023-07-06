@@ -1,4 +1,4 @@
-# reservations-app
+# Reservations App
 
 _All code written by Robert Benninger_
 
@@ -14,7 +14,7 @@ The reservation app can be used by multiple customers. Each customer gets their 
 
 In front of the API Gateway is an EKS cluster running nginx pods. Nginx can be used for API key validation and advanced routing.
 
-# cost savings lambdas
+# Cost savings lambdas
 
 "Delete Cluster" and "Deploy Cluster" Lambdas are used to completely tear and re-deploy the EKS cluster on a schedule to save costs. The delete Lambda uses a python script to destroy the EKS nodegroup and cluster. The deploy Lambda is used to trigger a Terraform Cloud run which rebuids the cluster and nodegroup. This is done to prevent control plane charges from accruing outside the hours that this particular demo project is being developed on. 
 

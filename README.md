@@ -1,4 +1,4 @@
-# Reservations App
+# Reservations app
 
 _All code written by Robert Benninger_
 

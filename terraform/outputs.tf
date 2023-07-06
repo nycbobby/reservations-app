@@ -1,8 +1,8 @@
 output "apigw_invoke_url" {
-  value = aws_api_gateway_stage.reservations.invoke_url
+  value = module.apigw.apigw_invoke_url
 }
 
 output "api_key" {
-  value     = aws_api_gateway_api_key.reservations.value
+  value     = module.apigw.api_key
   sensitive = true
 }

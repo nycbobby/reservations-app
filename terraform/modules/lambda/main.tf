@@ -11,3 +11,12 @@ resource "aws_lambda_function" "function" {
     variables = var.environment_vars
   }
 }
+
+module "lambda_schedule" {
+  for_each            = var.schedule
+  source              = "./event_rule"
+  rule_name           = "${var.fn_name}-${each.key}"
+  rule_desc           = "Daily at ${each.key}"
+  lambda_arn          = aws_lambda_function.function.arn
+  schedule_expression = each.value
+}

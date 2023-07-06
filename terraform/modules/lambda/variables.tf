@@ -22,3 +22,8 @@ variable "environment_vars" {
   type    = map(string)
   default = {}
 }
+
+variable "schedule" {
+  type    = map(any)
+  default = {}
+}

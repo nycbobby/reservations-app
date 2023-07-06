@@ -1,3 +1,3 @@
 variable "customer" {
-    type = string
+  type = string
 }

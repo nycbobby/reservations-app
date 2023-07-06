@@ -26,24 +26,24 @@ resource "aws_dynamodb_table" "reservations" {
   }
 
   global_secondary_index {
-    name     = "NightsIndex"
-    hash_key = "Nights"
+    name            = "NightsIndex"
+    hash_key        = "Nights"
     write_capacity  = 1
     read_capacity   = 1
     projection_type = "ALL"
   }
 
   global_secondary_index {
-    name     = "RoomNumberIndex"
-    hash_key = "RoomNumber"
+    name            = "RoomNumberIndex"
+    hash_key        = "RoomNumber"
     write_capacity  = 1
     read_capacity   = 1
     projection_type = "ALL"
   }
 
   global_secondary_index {
-    name     = "CustomerNameIndex"
-    hash_key = "CustomerName"
+    name            = "CustomerNameIndex"
+    hash_key        = "CustomerName"
     write_capacity  = 1
     read_capacity   = 1
     projection_type = "ALL"

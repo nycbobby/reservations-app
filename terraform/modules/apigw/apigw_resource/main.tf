@@ -31,7 +31,7 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 module "lambda" {
-  source           = "../lambda"
+  source           = "../../lambda"
   artifacts_bucket = var.artifacts_bucket
   lambda_build     = var.lambda_build
   fn_name          = var.fn_name

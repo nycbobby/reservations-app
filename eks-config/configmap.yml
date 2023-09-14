@@ -1,0 +1,20 @@
+Name:         aws-auth
+Namespace:    kube-system
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+mapRoles:
+----
+- groups:
+  - system:bootstrappers
+  - system:nodes
+  rolearn: arn:aws:iam::261220833951:role/eks_test_nodegroup-role
+  username: system:node:{{EC2PrivateDNSName}}
+
+
+BinaryData
+====
+
+Events:  <none>

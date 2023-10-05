@@ -16,11 +16,11 @@ front-end script -> nginx -> api gateway -> lambda -> dynamo
 
 # Nginx
 
-Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. This pod was built with a Dockerfile and stored in an AWS Elastic Container Repository. The EKS cluster is configured with access to this repo and the latest pod gets deplooyed with `kubectl` by applying the configuration file in `eks-config/nginx-deployment.yaml`. Nginx passes the request along with the customer name in the header to the Lambda functions. Later this will be used to translate a friendly DNS name to a tenant ID for each customer's web requests. 
+Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. This pod was built with a Dockerfile and stored in an AWS Elastic Container Repository. The EKS cluster is configured with access to this repo and the latest pod gets deplooyed with `kubectl` by applying the configuration file in `eks-config/nginx-deployment.yaml`. Later this will be used to translate a friendly DNS name to a tenant ID for each customer's web requests. 
 
 # Application Lambdas
 
-Each application function unpacks the web request to get the customer name for routing to the correct table, and performs the basic operations of the menu option. For exmaple, when the customer wants to add a new reservation a json payload containeing the reservation details is passed with the request, and those details are written to that customer's DynamoDB table by the Lambda funtion. 
+Each application function unpacks the web request to get the customer name for routing to the correct table, and performs the basic operations associated with that menu option of the client script. For exmaple, when the customer wants to add a new reservation a json payload containeing the reservation details is passed with the request, and those details are written to that customer's DynamoDB table by the Lambda funtion. 
 
 # EKS Management Lambdas
 

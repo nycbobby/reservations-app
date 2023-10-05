@@ -24,7 +24,7 @@ Each application function unpacks the web request to get the customer name for r
 
 # EKS Management Lambdas
 
-Since the EKS control plane is billed hourly and can't be paused or turned off, several lambdas have been created to completely tear down and rebuild the cluster according to my study schedule. An EKS cluster takes about 10 minutes to create or destroy so this saves me a lot of time and lets me get right to work in the small windows that I have evailable. This has many real-world applications as well, such as shutting down dev/test instances on a schedule to save money. 
+Since the EKS control plane is billed hourly and can't be paused or turned off, several lambdas have been created to completely tear down and rebuild the cluster according to my study schedule. An EKS cluster takes about 10 minutes to create or destroy so this saves me a lot of time and lets me get right to work in the small windows that I have available. This has many real-world applications as well, such as shutting down dev/test instances on a schedule to save money. 
 
 * "Delete Cluster" lambda - this lambda uses the boto3 client to delete the nodegroup and then the cluster
 * "Deploy Cluster" lambda - this lambda uses the terrasnek python library to interact with the Terraform Cloud API to execute a plan in the workspace I setup for this project. When the cluster is deleted its config stays in the Terraform state, so executing and applying a plan from this workspace simply re-creates the cluster with the correct settings. 

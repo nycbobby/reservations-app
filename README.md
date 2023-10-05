@@ -20,7 +20,7 @@ Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. Thi
 
 # Application Lambdas
 
-Each application function unpacks the web request to get the customer name for routing to the correct table, and performs the basic operations associated with that menu option of the client script. For exmaple, when the customer wants to add a new reservation a json payload containeing the reservation details is passed with the request, and those details are written to that customer's DynamoDB table by the Lambda funtion. 
+Each application function unpacks the web request to get the customer name for routing to the correct table, and performs the basic operations associated with that menu option of the client script. For exmaple, when the customer wants to add a new reservation a json payload containing the reservation details is passed with the request, and those details are written to that customer's DynamoDB table by the Lambda funtion. 
 
 # EKS Management Lambdas
 

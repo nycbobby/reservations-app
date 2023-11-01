@@ -1,7 +1,7 @@
 import os, requests, json
 
 # set constants
-URL_STEM = "http://a8597e5ddf35d4b2e87d568baabb8cc6-1491154.us-east-1.elb.amazonaws.com"
+URL_STEM = "http://a6f71c04c2cc34fbdb7918974b90e443-496970074.us-east-1.elb.amazonaws.com" # eks load balancer
 API_KEY = ''
 CUSTOMER = 'Star'
 HEADERS = {

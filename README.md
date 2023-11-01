@@ -41,4 +41,5 @@ Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. Thi
 
 # 
 
-![image](https://github.com/nycbobby/reservations-app/assets/47117909/2e105d93-0a7c-4dfb-b86a-877ac57f0ef3)
+![image](https://github.com/nycbobby/reservations-app/assets/47117909/7a4d8dc0-c189-4c9e-8e80-f5c289d2bdae)
+

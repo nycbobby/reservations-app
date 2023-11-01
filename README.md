@@ -1,4 +1,4 @@
-# Reservations Demo App
+# Reservations Demo App 
 
 _All code written by Robert Benninger_ 
 
@@ -14,7 +14,7 @@ The app has 3 functions, each performed by a separate Lambda:
 
 A reservation is a simple row of data in a DynamoDB table consisting of Name, Room #, Number of nights, and Reservation ID. The reservation app can be used by multiple customers. Each customer gets their own DynamoDB table. The customer name is passed to the Lambda functions via a request header in the front-end script which tells the lambda which table to access. 
 
-_front-end script -> nginx -> api gateway -> lambda -> dynamo_
+_front-end script -> nginx -> api gateway -> lambda -> dynamo_ 
 
 # Terraform Code
 
@@ -39,3 +39,6 @@ An AWS Codebuid project with associated buildspec.yaml is used to buid all lambd
 
 Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. This pod was built with a Dockerfile and stored in an AWS Elastic Container Repository. The EKS cluster is configured with access to this repo and the latest pod gets deplooyed with `kubectl` by applying the configuration file in `eks-config/nginx-deployment.yaml`. Later this will be used to translate a friendly DNS name to a tenant ID for each customer's web requests. 
 
+# 
+
+![image](https://github.com/nycbobby/reservations-app/assets/47117909/2e105d93-0a7c-4dfb-b86a-877ac57f0ef3)

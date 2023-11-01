@@ -14,7 +14,7 @@ The app has 3 functions, each performed by a separate Lambda:
 
 A reservation is a simple row of data in a DynamoDB table consisting of Name, Room #, Number of nights, and Reservation ID. The reservation app can be used by multiple customers. Each customer gets their own DynamoDB table. The customer name is passed to the Lambda functions via a request header in the front-end script which tells the lambda which table to access. 
 
-_front-end script -> nginx -> api gateway -> lambda -> dynamo _
+_front-end script -> nginx -> api gateway -> lambda -> dynamo_
 
 # Terraform Code
 

@@ -20,22 +20,22 @@ _front-end script -> nginx -> api gateway -> lambda -> dynamo_
 
 Modularized Terraform code (stored in `/terraform`) is used to deploy the reservations app (including API Gateway, DynamoDB, Lambda, EKS, and IAM resources) as well as the EKS Management lambdas through a Terraform Cloud workspace.
 
-# Nginx
-
-Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. This pod was built with a Dockerfile and stored in an AWS Elastic Container Repository. The EKS cluster is configured with access to this repo and the latest pod gets deplooyed with `kubectl` by applying the configuration file in `eks-config/nginx-deployment.yaml`. Later this will be used to translate a friendly DNS name to a tenant ID for each customer's web requests. 
-
 # Application Lambdas
 
 Each application function unpacks the web request to get the customer name for routing to the correct table, and performs the basic operations associated with that menu option of the client script. For example, when the customer wants to add a new reservation a json payload containing the reservation details is passed with the request, and those details are written to that customer's DynamoDB table by the Lambda funtion. 
 
 # EKS Management Lambdas
 
-Since the EKS control plane is billed hourly and can't be paused or turned off, several lambdas have been created to completely tear down and rebuild the cluster according to my study schedule. An EKS cluster takes about 10 minutes to create or destroy so this saves me a lot of time and lets me get right to work in the small windows that I have available. This has many real-world applications as well, such as shutting down dev/test instances on a schedule to save money. 
+Since the EKS control plane is billed hourly and can't be paused or turned off, several lambdas have been created to completely tear down and rebuild the cluster according to my study schedule. An EKS cluster takes about 10 minutes to create or destroy so this saves me a lot of time and reduce costs. This has many real-world applications as well, such as shutting down dev/test instances on a schedule to save money. 
 
-* "Delete Cluster" lambda - this lambda uses the boto3 client to delete the nodegroup and then the cluster
-* "Deploy Cluster" lambda - this lambda uses the terrasnek python library to interact with the Terraform Cloud API to execute a plan in the workspace I setup for this project. When the cluster is deleted its config stays in the Terraform state, so executing and applying a plan from this workspace simply re-creates the cluster with the correct settings. 
+* `Delete Cluster` lambda - this lambda uses the boto3 client to delete the nodegroup and then the cluster
+* `Deploy Cluster` lambda - this lambda uses the terrasnek python library to interact with the Terraform Cloud API to execute a plan in the workspace I setup for this project. When the cluster is deleted its config stays in the Terraform state, so executing and applying a plan from this workspace simply re-creates the cluster with the correct settings. 
 
 # Lambda Builds
 
 An AWS Codebuid project with associated buildspec.yaml is used to buid all lambdas in the demo. The function name is passed to the Codebuild project via the FUNCTION_NAME environment variable. This stores the lambda zip artifact in an S3 bucket with the build ID appended to the file name. The build ID is passed back to Terraform to deploy the desired version of the lambda.
+
+# Nginx
+
+Nginx is deployed in an EKS pod that is sitting in front of the API Gateway. This pod was built with a Dockerfile and stored in an AWS Elastic Container Repository. The EKS cluster is configured with access to this repo and the latest pod gets deplooyed with `kubectl` by applying the configuration file in `eks-config/nginx-deployment.yaml`. Later this will be used to translate a friendly DNS name to a tenant ID for each customer's web requests. 
 

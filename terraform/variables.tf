@@ -51,9 +51,9 @@ variable "apigw_resources" {
   type = list(list(string))
   # format ["fn_name","http_method","lambda_build"]
   default = [
-    ["get-res", "GET", "58"],
-    ["add-res", "POST", "59"],
-    ["delete-res", "POST", "60"]
+    ["get-res", "GET", "65"],
+    ["add-res", "POST", "64"],
+    ["delete-res", "POST", "66"]
   ]
 }
 

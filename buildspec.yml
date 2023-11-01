@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    FUNCTION_NAME: eks-delete-cluster
+    FUNCTION_NAME: add-res
 phases:
   install:
     runtime-versions:
@@ -11,8 +11,8 @@ phases:
       - echo Build started on `date`
       - echo Compiling the Python code...
       - pwd
-      - pip install -r lambdas/$FUNCTION_NAME/requirements.txt -t .
-      - cp lambdas/$FUNCTION_NAME/lambda.py .
+      - pip install -r lambdas/reservations-app/$FUNCTION_NAME/requirements.txt -t .
+      - cp lambdas/reservations-app/$FUNCTION_NAME/lambda.py .
   post_build:
     commands:
       - echo Build completed on `date`

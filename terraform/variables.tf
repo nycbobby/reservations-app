@@ -3,23 +3,27 @@ variable "vpc_id" {
 }
 
 variable "artifacts_bucket" {
-  type    = string
-  default = "lambda-artifacts-bb"
+  description = "bucket for codedeploy to use for storing lambda zip files."
+  type        = string
+  default     = "lambda-artifacts-bb"
 }
 
 variable "tfc_secret_arn" {
-  type    = string
-  default = "arn:aws:secretsmanager:us-east-1:261220833951:secret:tfc_token-hUk0Xy"
+  description = "secrets manager arn for terraform cloud authentication secret."
+  type        = string
+  default     = "arn:aws:secretsmanager:us-east-1:261220833951:secret:tfc_token-hUk0Xy"
 }
 
 variable "tfc_url" {
-  type    = string
-  default = "https://app.terraform.io"
+  description = "terraform cloud url."
+  type        = string
+  default     = "https://app.terraform.io"
 }
 
 variable "tfc_org" {
-  type    = string
-  default = "tba_bb"
+  description = "terraform cloud organization name."
+  type        = string
+  default     = "tba_bb"
 }
 
 variable "workspace_id" {
@@ -38,8 +42,9 @@ variable "cluster_name" {
 }
 
 variable "node_group_name" {
-  type    = string
-  default = "eks_test_nodegroup"
+  descriptiop = "eks node group name, for nginx deployment."
+  type        = string
+  default     = "eks_test_nodegroup"
 }
 
 variable "apigw_name" {
@@ -48,18 +53,22 @@ variable "apigw_name" {
 }
 
 variable "apigw_resources" {
-  type = list(list(string))
+  description = "api gateway resources names with their corresponding methods and lambdas build numbers."
+  type        = list(list(string))
+
   # format ["fn_name","http_method","lambda_build"]
   default = [
     ["get-res", "GET", "65"],
     ["add-res", "POST", "64"],
     ["delete-res", "POST", "66"]
   ]
+
 }
 
 variable "standby_lambdas" {
-  type = map(any)
-  default = {
+  description = "schedule for tearing down and deploying EKS cluster."
+  type        = map(any)
+  default     = {
     "eks-delete-cluster" = {
       "build" = "52"
       "schedule" = {
